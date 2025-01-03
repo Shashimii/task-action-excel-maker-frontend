@@ -7,7 +7,11 @@
   font-family: "Lexend", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #eceff1;
   color: #2c3e50;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-field input:focus {
@@ -20,5 +24,9 @@
 
 .btn-block {
   width: 100%;
+}
+
+.name-column {
+    width: 100%;
 }
 </style>

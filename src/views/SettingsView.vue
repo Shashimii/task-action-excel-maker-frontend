@@ -5,10 +5,11 @@
         <div class="row">
             <div class="col s12 m3">
                 <AccountSettings></AccountSettings>
+                <AddPanel></AddPanel>
             </div>
             <div class="col s12 m9">
-                <DutiesSettings></DutiesSettings>
-                <OfficerSettings></OfficerSettings>
+                <DutiesList></DutiesList>
+                <OfficerList></OfficerList>
             </div>
         </div>
     </div>
@@ -16,15 +17,17 @@
 <script>
 import WebNavbar from '@/components/WebNavbar.vue';
 import AccountSettings from '@/components/AccountSettings.vue';
-import DutiesSettings from '@/components/DutiesSettings.vue';
-import OfficerSettings from '@/components/OfficerSettings.vue';
+import AddPanel from '@/components/SettingsAddPanel.vue';
+import DutiesList from '@/components/DutiesList.vue';
+import OfficerList from '@/components/OfficerList.vue';
 export default {
     name: 'SettingsView',
     components: {
         WebNavbar,
         AccountSettings,
-        DutiesSettings,
-        OfficerSettings
+        AddPanel,
+        DutiesList,
+        OfficerList
     }
 }
 </script>
