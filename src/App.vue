@@ -9,7 +9,7 @@
   -moz-osx-font-smoothing: grayscale;
   background-color: #eceff1;
   color: #2c3e50;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -28,5 +28,32 @@
 
 .name-column {
     width: 100%;
+}
+
+.map-table {
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+.map-th, .map-td {
+    border: 2px solid #000000;
+    padding: 8px;
+    text-align: center;
+    min-width: 7rem;
+}
+.map-th {
+    background-color: #f4f4f4;
+}
+.map-th:first-child {
+    background-color: #e0e0e0;
+}
+.map-tr {
+    background-color: #f4f4f4;
+}
+.map-tr:hover {
+    background-color: #e0e0e0;;
+}
+
+.datepicker-modal {
+    top: 25% !important;
 }
 </style>
