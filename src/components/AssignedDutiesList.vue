@@ -20,9 +20,34 @@
                 </a>
             </div>
             <div class="collapsible-body">
-                <ul>
-                    <li>{{ assign.duty }} ~ {{ assign.code }} ~ {{ assign.date }}</li>
-                </ul>
+                <div class="body-container">
+                    <div class="row">
+                        <div class="col m12 l6">
+                            <div class="body-primary-container">
+                                <div class="body-item">
+                                    <p class="body-item-title"><i class="material-icons">assignment_late</i> Duty Name: </p>
+                                    <p>{{ assign.duty }}</p>
+                                </div>
+                                <div class="body-item">
+                                    <p class="body-item-title"><i class="material-icons">insert_drive_file</i> ODTS Code: </p>
+                                    <p>{{ assign.code }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m12 l6">
+                            <div class="body-secondary-container">
+                                <div class="body-item">
+                                    <p class="body-item-title"><i class="material-icons">person</i> Assigned to: </p>
+                                    <p>{{ assign.officer }}</p>
+                                </div>
+                                <div class="body-item">
+                                    <p class="body-item-title"><i class="material-icons">event</i> Due Date: </p>
+                                    <p>{{ assign.date }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </li>
     </ul>
@@ -61,6 +86,10 @@ export default {
 </script>
 
 <style scoped>
+p {
+    width: 100%;
+}
+
 .collapsible-header {
     display: flex;
     justify-content: space-between;
@@ -70,5 +99,15 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.body-item {
+    display: flex;
+}
+
+.body-item-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 </style>
