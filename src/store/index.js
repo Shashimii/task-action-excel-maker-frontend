@@ -19,16 +19,29 @@ export default createStore({
       {id: 6, name: 'Officer 6'},
       {id: 7, name: 'Officer 7'},
       {id: 8, name: 'Officer 8'},
-    ]
+    ],
+
+    assigned: [],
   },
+
   getters: {
     duties: state => state.duties,
     officers: state => state.officers,
+    assigned: state => state.assigned
   },
+
   mutations: {
+    pushAssignData(state, assignData) {
+      state.assigned.push({ ...assignData });
+    }
   },
+
   actions: {
+    assignDuty({ commit }, assignData) {
+      commit('pushAssignData', assignData);
+    }
   },
+  
   modules: {
   }
 })
