@@ -1,5 +1,5 @@
 <template>
-    <div ref="table_container"></div>
+    <div ref="table_container" class="map-table-container"></div>
 </template>
 
 <script>
@@ -120,3 +120,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.map-table-container {
+    overflow-x: auto;
+}
+</style>
