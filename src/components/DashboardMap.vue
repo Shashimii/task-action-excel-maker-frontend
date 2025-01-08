@@ -9,7 +9,7 @@ export default {
     methods: {
         createTable() {
             const table = document.createElement("table");
-            table.id = "my-table";
+            table.id = "mapTable";
             table.className = "centered map-table"
             
             const header = table.createTHead();
@@ -64,33 +64,27 @@ export default {
         },
 
         assignDuty() {
-            if (this.assigned != '') {
-                const assignedList = this.assigned;
+            const assignedList = this.assigned;
 
-                assignedList.forEach((assign) => {
-                    const cellIndex = assign.dutyIndex + '-' + assign.officerIndex;
-                    const cell = document.getElementById(cellIndex);
-                    
-                    if (cell) {
-                        cell.innerHTML = '';
-                    } else {
-                        console.error('unable to find cell');
-                    }
-                    
-                })
+            const cells = document.querySelectorAll('#mapTable td.map-td');
+            cells.forEach(cell => {
+                cell.innerHTML = ''
+            })
 
-                assignedList.forEach((assign) => {
-                    const cellIndex = assign.dutyIndex + '-' + assign.officerIndex;
-                    const cell = document.getElementById(cellIndex);
-                    
-                    if (cell) {
-                        cell.innerHTML += '<p>' + assign.date + ' ' + assign.code + '</p>';
-                    } else {
-                        console.error('unable to find cell');
-                    }
-                    
-                })
-            }
+            console.log(cells);
+
+            assignedList.forEach((assign) => {
+                const cellIndex = assign.dutyIndex + '-' + assign.officerIndex;
+                const cell = document.getElementById(cellIndex);
+                
+                if (cell) {
+                    cell.innerHTML += '<p>' + assign.date + ' ' + assign.code + '</p>';
+                } else {
+                    console.error('unable to find cell');
+                }
+                
+            })
+            
         }
     },
 
