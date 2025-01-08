@@ -1,24 +1,15 @@
 <template>
     <ul class="collapsible">
-        <li>
-            <div class="collapsible-header"><i class="material-icons">person</i>Officer Alvin</div>
+        <li v-for="(assign, index) in this.assigned" :key="index">
+            <div class="collapsible-header">
+                <i class="material-icons">person</i>
+                {{ assign.officer }} ~ {{ assign.date }} ~ {{ assign.code }} ~ {{ index }} <a class="waves-effect waves-light btn red accent-4" @click="deleteAssigned(index)">DELETE</a>
+            </div>
             <div class="collapsible-body">
                 <ul>
-                    <li>
-                        <span>3. Resolution of Administrative Complaints/Cases / Civil Cases</span>
-                    </li>
-                    <li>
-                        <span>1.4.2 Conduct of Call</span>
-                    </li>
-                    <li>
-                        <span>1.5 Attendance in Inter-Agency and /or foreign meetings/ workshops/ conferences, and preparations of report/s therefore</span>
-                    </li>
+                    <li>{{ assign.duty }} ~ {{ assign.code }} ~ {{ assign.date }}</li>
                 </ul>
             </div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="material-icons">person</i>Officer Jonathan</div>
-            <div class="collapsible-body"><span>1.4.2 Conduct of Call</span></div>
         </li>
     </ul>
 </template>
@@ -27,9 +18,30 @@
 export default {
     name: 'AssignedDutiesList',
 
+    methods: {
+        deleteAssigned(index) {
+            this.assigned.splice(index, 1);
+        },
+
+        initalizeMaterializeCSS() {
+            const CollapsibleElem = document.querySelectorAll('.collapsible');
+            M.Collapsible.init(CollapsibleElem, {});
+        }
+    },
+
+    computed: {
+        assigned() {
+            return this.$store.getters.assigned;
+        }
+    },
+
     mounted() {
-        const CollapsibleElem = document.querySelectorAll('.collapsible');
-        M.Collapsible.init(CollapsibleElem, {});
+        this.initalizeMaterializeCSS();
+    },
+
+    updated() {
+        this.initalizeMaterializeCSS();
     }
+
 }
 </script>
