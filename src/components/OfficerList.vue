@@ -11,18 +11,8 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Alvin</td>
-                        <td><button class="btn-small waves-effect waves-light blue darken-4">Edit</button></td>
-                        <td><button class="btn-small waves-effect waves-light red darken-4">Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Alan</td>
-                        <td><button class="btn-small waves-effect waves-light blue darken-4">Edit</button></td>
-                        <td><button class="btn-small waves-effect waves-light red darken-4">Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Jonathan</td>
+                    <tr v-for="(officers, index) in this.officers" :key="index">
+                        <td>{{ officers.name }}</td>
                         <td><button class="btn-small waves-effect waves-light blue darken-4">Edit</button></td>
                         <td><button class="btn-small waves-effect waves-light red darken-4">Delete</button></td>
                     </tr>
@@ -35,5 +25,15 @@
 <script>
 export default {
     name: 'OfficerList',
+
+    methods: {
+        //  delete and edit methods
+    },
+
+    computed: {
+        officers() {
+            return this.$store.getters.officers
+        }
+    }
 }
 </script>

@@ -8,8 +8,24 @@
                 <AddPanel></AddPanel>
             </div>
             <div class="col s12 m9">
-                <DutiesList></DutiesList>
-                <OfficerList></OfficerList>
+                <div class="card">
+                    <div v-if="this.duties != 0">
+                        <DutiesList></DutiesList>
+                    </div>
+                    <div v-else class="no-prompt">
+                        <p class="no-prompt-primary-text">Duties List will be shown here.</p>
+                        <p class="no-prompt-secondary-text">Add Duties on Add New panel on left side of the screen</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div v-if="this.officers !=0">
+                        <OfficerList></OfficerList>
+                    </div>
+                    <div v-else class="no-prompt">
+                        <p class="no-prompt-primary-text">Officers List will be shown here.</p>
+                        <p class="no-prompt-secondary-text">Add Officer on Add New panel on left side of the screen</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -28,6 +44,16 @@ export default {
         AddPanel,
         DutiesList,
         OfficerList
+    },
+
+    computed: {
+        duties() {
+            return this.$store.getters.duties;
+        },
+
+        officers() {
+            return this.$store.getters.officers;
+        }
     }
 }
 </script>
