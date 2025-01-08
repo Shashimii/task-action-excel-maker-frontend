@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <h4>Assign Duties</h4>
                 <div class="input-field col s12">
-                    <select id="inputOfficer" v-model="assignData.valueOfficer" ref="selectionOfficer">
+                    <select id="inputOfficer" v-model="assignData.officerIndex" ref="selectionOfficer">
                         <option value="" disabled selected>Select Officer</option>
                         <option v-for="(officer, index) in officers" :key="officer.id" :value="'officer' + (index)">{{ officer.name }}</option>
                     </select>
@@ -13,7 +13,7 @@
                     <p v-if="validation.officer" class="validation">{{ validation.officer }}</p>
                 </div>
                 <div class="input-field col s12">
-                    <select id="inputDuties" v-model="assignData.valueDuty" ref="selectionDuty">
+                    <select id="inputDuties" v-model="assignData.dutyIndex" ref="selectionDuty">
                         <option value="" disabled selected>Select Duties</option>
                         <option v-for="(duty, index) in duties" :key="duty.id" :value="'duty' + (index)">{{ duty.duty }}</option>
                     </select>
@@ -26,7 +26,7 @@
                     <p v-if="validation.date" class="validation">{{ validation.date }}</p> 
                 </div>
                 <div class="input-field col s12">
-                    <input type="text" id="inputCode" v-model="assignData.inputCode">
+                    <input type="text" id="inputCode" v-model="assignData.code">
                     <label for="inputCode">ODTS Number</label>
                     <p v-if="validation.code" class="validation">{{ validation.code }}</p> 
                 </div>
@@ -49,12 +49,12 @@ export default {
     data() {
         return {
             assignData: {
-                inputOfficer: '',
-                inputDuty: '',
-                inputDate: '',
-                inputCode: '',
-                valueOfficer: '',
-                valueDuty: ''                
+                officer: '',
+                duty: '',
+                date: '',
+                code: '',
+                officerIndex: '',
+                dutyIndex: ''                
                 
             },
 
@@ -74,26 +74,28 @@ export default {
                     const selectedOfficer = selectionOfficer.options[selectionOfficer.selectedIndex];
 
                     if (selectedOfficer) {
-                        this.assignData.inputOfficer = selectedOfficer.text;
+                        this.assignData.officer = selectedOfficer.text;
                     }
 
                     const selectionDuty = this.$refs.selectionDuty;
                     const selectedDuty = selectionDuty.options[selectionDuty.selectedIndex];
 
                     if (selectedDuty) {
-                        this.assignData.inputDuty = selectedDuty.text;
+                        this.assignData.duty = selectedDuty.text;
                     }
+
+                    console.table(this.assignData)
                 }
             },
 
         cancel() {
             this.assignData = {
-                inputOfficer: '',
-                inputDuty: '',
-                inputDate: '',
-                inputCode: '',
-                valueOfficer: '',
-                valueDuty: '' 
+                officer: '',
+                duty: '',
+                date: '',
+                code: '',
+                officerIndex: '',
+                dutyIndex: '' 
             }
 
             const inputDate = document.getElementById('inputDate');
@@ -110,22 +112,22 @@ export default {
 
             let isValid = true;
 
-            if(this.assignData.valueOfficer === '') {
+            if(this.assignData.officerIndex === '') {
                 this.validation.officer = 'Please Select an Officer.'
                 isValid = false;
             }
             
-            if(this.assignData.valueDuty === '') {
+            if(this.assignData.dutyIndex === '') {
                 this.validation.duty = 'Please Select a Duty.'
                 isValid = false;
             }
 
-            if(this.assignData.inputDate === '') {
+            if(this.assignData.date === '') {
                 this.validation.date = 'Please Select a Date.'
                 isValid = false;
             }
 
-            if(this.assignData.inputCode === '') {
+            if(this.assignData.code === '') {
                 this.validation.code = 'ODTS Code cannot be empty.'
                 isValid = false;
             }
@@ -143,7 +145,7 @@ export default {
             });
 
             M.updateTextFields()
-            this.assignData.inputDate = document.getElementById('inputDate').value;
+            this.assignData.date = document.getElementById('inputDate').value;
         },
     },
 
