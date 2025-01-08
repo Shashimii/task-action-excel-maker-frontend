@@ -33,7 +33,7 @@ export default {
         initalizeMaterializeCSS() {
             const FabElems = document.querySelectorAll('.fixed-action-btn');
             M.FloatingActionButton.init(FabElems, {});
-            
+
             const ModalElems = document.querySelectorAll('.modal');
             M.Modal.init(ModalElems, {}); 
         }
