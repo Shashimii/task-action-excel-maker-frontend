@@ -45,7 +45,7 @@
 <script>
 export default {
     name: 'AssignDutiesModal',
-    
+
     data() {
         return {
             // assign data
