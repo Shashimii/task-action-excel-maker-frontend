@@ -45,9 +45,10 @@
 <script>
 export default {
     name: 'AssignDutiesModal',
-
+    
     data() {
         return {
+            // assign data
             assignData: {
                 officer: '',
                 duty: '',
@@ -57,7 +58,7 @@ export default {
                 dutyIndex: ''                
                 
             },
-
+            // validation data
             validation: {
                 officer: '',
                 duty: '',
@@ -68,27 +69,45 @@ export default {
     },
 
     methods: {
-            submit() {
-                if(this.validateSubmit()) {
-                    const selectionOfficer = this.$refs.selectionOfficer;
-                    const selectedOfficer = selectionOfficer.options[selectionOfficer.selectedIndex];
+        submit() {
+            if(this.validateSubmit()) {
+                const selectionOfficer = this.$refs.selectionOfficer;
+                const selectionDuty = this.$refs.selectionDuty;
+                const selectedOfficer = selectionOfficer.options[selectionOfficer.selectedIndex];
+                const selectedDuty = selectionDuty.options[selectionDuty.selectedIndex];
+                const modal = M.Modal.getInstance(document.getElementById('AssignDutiesModal'));
+                const inputDate = document.getElementById('inputDate');
 
-                    if (selectedOfficer) {
-                        this.assignData.officer = selectedOfficer.text;
-                    }
-
-                    const selectionDuty = this.$refs.selectionDuty;
-                    const selectedDuty = selectionDuty.options[selectionDuty.selectedIndex];
-
-                    if (selectedDuty) {
-                        this.assignData.duty = selectedDuty.text;
-                    }
-
-                    console.table(this.assignData)
+                // set the officer and duty name
+                if (selectedOfficer) {
+                    this.assignData.officer = selectedOfficer.text;
                 }
-            },
+                if (selectedDuty) {
+                    this.assignData.duty = selectedDuty.text;
+                }
+                
+                modal.close(); // close the modal
+                this.$store.dispatch('assignDuty', this.assignData); // store the submitted data
+                
+                console.table(this.assigned);
+
+                // clear the data
+                this.assignData = {
+                    officer: '',
+                    duty: '',
+                    date: '',
+                    code: '',
+                    officerIndex: '',
+                    dutyIndex: '' 
+                }
+                inputDate.value = ''; // clear the datepicker
+            }
+        },
 
         cancel() {
+            const inputDate = document.getElementById('inputDate');
+
+            // clear the data
             this.assignData = {
                 officer: '',
                 duty: '',
@@ -97,12 +116,19 @@ export default {
                 officerIndex: '',
                 dutyIndex: '' 
             }
+            inputDate.value = ''; // clear the date picker
 
-            const inputDate = document.getElementById('inputDate');
-            inputDate.value = '';
+            // clear the validation
+            this.validation = {
+                officer: '',
+                duty: '',
+                date: '',
+                code: ''
+            }
         },
 
         validateSubmit() {
+            // validiation message holder
             this.validation = {
                 officer: '',
                 duty: '',
@@ -110,8 +136,10 @@ export default {
                 code: ''
             }
 
+            // validation flag
             let isValid = true;
 
+            // validate every input field
             if(this.assignData.officerIndex === '') {
                 this.validation.officer = 'Please Select an Officer.'
                 isValid = false;
@@ -132,30 +160,38 @@ export default {
                 isValid = false;
             }
 
+            // return flags
             return isValid;
         },
 
         initalizeMaterializeCSS() {
+            // select
             const selectElems = document.querySelectorAll('select');
-                M.FormSelect.init(selectElems, {});
-                
+            M.FormSelect.init(selectElems, {});
+            // datepicker
             const dateElems = document.querySelectorAll('.datepicker');
-                M.Datepicker.init(dateElems, {
+            M.Datepicker.init(dateElems, {
                 container: document.querySelector('#datepickerContainer') 
             });
-
-            M.updateTextFields()
+            // get datepicker input value
             this.assignData.date = document.getElementById('inputDate').value;
+            // text labels
+            M.updateTextFields()
         },
     },
 
     computed: {
+        // get data
         officers() {
             return this.$store.getters.officers;
         },
 
         duties() {
             return this.$store.getters.duties;
+        },
+
+        assigned() {
+            return this.$store.getters.assigned;
         }
     },
 
