@@ -6,13 +6,6 @@
 export default {
     name: 'DashboardMap',
 
-    mounted() {
-        this.createTable();
-        const container = this.$refs.table_container;
-        container.appendChild(this.createTable());
-        
-    },
-
     methods: {
         createTable() {
             const table = document.createElement("table");
@@ -68,6 +61,24 @@ export default {
             })
 
             return table
+        },
+
+        assignDuty() {
+            if (this.assigned != '') {
+                const assignedList = this.assigned;
+
+                assignedList.forEach((assign) => {
+                    const cellIndex = assign.dutyIndex + '-' + assign.officerIndex;
+                    const cell = document.getElementById(cellIndex);
+
+                    if (cell) {
+                        cell.innerHTML += '<p>' + assign.date + ' ' + assign.code + '</p>';
+                    } else {
+                        console.error('unable to find cell');
+                    }
+                    
+                })
+            }
         }
     },
 
@@ -78,7 +89,28 @@ export default {
 
         duties() {
             return this.$store.getters.duties;
+        },
+
+        assigned() {
+            return this.$store.getters.assigned;
         }
+    },
+
+    watch: {
+        assigned: {
+            handler() {
+                this.assignDuty();
+            },
+            deep: true
+        },
+    },
+
+    mounted() {
+        this.createTable();
+        const container = this.$refs.table_container;
+        container.appendChild(this.createTable());
+        this.assignDuty();
+        
     }
 }
 </script>
