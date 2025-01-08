@@ -70,7 +70,19 @@ export default {
                 assignedList.forEach((assign) => {
                     const cellIndex = assign.dutyIndex + '-' + assign.officerIndex;
                     const cell = document.getElementById(cellIndex);
+                    
+                    if (cell) {
+                        cell.innerHTML = '';
+                    } else {
+                        console.error('unable to find cell');
+                    }
+                    
+                })
 
+                assignedList.forEach((assign) => {
+                    const cellIndex = assign.dutyIndex + '-' + assign.officerIndex;
+                    const cell = document.getElementById(cellIndex);
+                    
                     if (cell) {
                         cell.innerHTML += '<p>' + assign.date + ' ' + assign.code + '</p>';
                     } else {
