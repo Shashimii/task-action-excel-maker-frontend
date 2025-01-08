@@ -171,7 +171,8 @@ export default {
             // datepicker
             const dateElems = document.querySelectorAll('.datepicker');
             M.Datepicker.init(dateElems, {
-                container: document.querySelector('#datepickerContainer') 
+                container: document.querySelector('#datepickerContainer'),
+                format: 'mm/dd/yyyy'
             });
             // get datepicker input value
             this.assignData.date = document.getElementById('inputDate').value;
