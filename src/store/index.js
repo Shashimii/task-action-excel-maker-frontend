@@ -4,10 +4,10 @@ export default createStore({
   state: {
     duties: [
       {id: 1, duty: '1. Rendering of Legal Opinion and other Legal Services'},
-      {id: 1, duty: '1.1 Rendering of Legal Opinion'},
-      {id: 1, duty: '1.2 Review of Contracts/MOA/ MOU and other Agreements'},
-      {id: 1, duty: '1.3 Evaluation of Investigation Reports (Forestry Cases)'},
-      {id: 1, duty: '1.4 Draft Correspondence to Quick Response Actions-8888 Complaints, Ombudsman, etc.'},
+      {id: 2, duty: '1.1 Rendering of Legal Opinion'},
+      {id: 3, duty: '1.2 Review of Contracts/MOA/ MOU and other Agreements'},
+      {id: 4, duty: '1.3 Evaluation of Investigation Reports (Forestry Cases)'},
+      {id: 5, duty: '1.4 Draft Correspondence to Quick Response Actions-8888 Complaints, Ombudsman, etc.'},
     ],
     
     officers: [
@@ -33,12 +33,28 @@ export default createStore({
   mutations: {
     pushAssignData(state, assignData) {
       state.assigned.push({ ...assignData });
+    },
+
+    pushAddDuty(state, dutyData) {
+      state.duties.push({ ...dutyData});
+    },
+
+    pushAddOfficer(state, officerData) {
+      state.officers.push({ ...officerData});
     }
   },
 
   actions: {
     assignDuty({ commit }, assignData) {
       commit('pushAssignData', assignData);
+    },
+
+    addDuty({ commit }, dutyData) {
+      commit('pushAddDuty', dutyData);
+    },
+
+    addOfficer({ commit }, officerData) {
+      commit('pushAddOfficer', officerData);
     }
   },
   

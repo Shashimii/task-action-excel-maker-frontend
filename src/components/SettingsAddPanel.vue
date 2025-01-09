@@ -14,7 +14,7 @@
             <div class="modal-content">
                 <h4>Add Duty</h4>
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Title" id="dutyTitle" v-model="duty.title">
+                    <input type="text" placeholder="Title" id="dutyTitle" v-model="duty.duty">
                     <label for="dutyTitle">Duty Title</label>
                 </div>
             </div>
@@ -55,7 +55,7 @@ export default {
     data() {
         return {
             duty: {
-                title: ''
+                duty: ''
             },
 
             officer: {
@@ -65,7 +65,20 @@ export default {
     },
 
     methods: {
-        
+        submitDuties() {
+            this.$store.dispatch('addDuty', this.duty);
+            console.table(this.duties)
+        },
+
+        submitOfficer() {
+            this.$store.dispatch('addOfficer', this.officer);
+        }
+    },
+
+    computed: {
+        duties() {
+            return this.$store.getters.duties
+        }
     }
 }
 </script>
