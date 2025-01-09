@@ -9,15 +9,13 @@
         </div>
     </div>
 
-
-
     <div id="AddDutiesModal" class="modal">
         <form @submit.prevent="submitDuties">
             <div class="modal-content">
                 <h4>Add Duty</h4>
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Duty Title" class="validate" id="dutyTitle">
-                    <label for="dutyTitle">Title</label>
+                    <input type="text" placeholder="Title" class="validate" id="dutyTitle">
+                    <label for="dutyTitle">Duty Title</label>
                 </div>
             </div>
             <div class="modal-footer">
@@ -35,8 +33,8 @@
             <div class="modal-content">
                 <h4>Add Officer</h4>
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Officer Name" class="validate" id="officerName">
-                    <label for="officerName">Name</label>
+                    <input type="text" placeholder="Name" class="validate" id="officerName">
+                    <label for="officerName">Officer Name</label>
                 </div>
             </div>
             <div class="modal-footer">
