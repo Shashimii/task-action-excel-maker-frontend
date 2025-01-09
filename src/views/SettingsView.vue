@@ -46,6 +46,16 @@ export default {
         OfficerList
     },
 
+    methods: {
+        initalizeMaterializeCSS() {
+            const FabElems = document.querySelectorAll('.fixed-action-btn');
+            M.FloatingActionButton.init(FabElems, {});
+
+            const ModalElems = document.querySelectorAll('.modal');
+            M.Modal.init(ModalElems, {}); 
+        }
+    },
+
     computed: {
         duties() {
             return this.$store.getters.duties;
@@ -54,6 +64,14 @@ export default {
         officers() {
             return this.$store.getters.officers;
         }
+    },
+
+    mounted() {
+        this.initalizeMaterializeCSS();
+    },
+
+    updated() {
+        this.initalizeMaterializeCSS();
     }
 }
 </script>

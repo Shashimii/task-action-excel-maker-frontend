@@ -51,22 +51,6 @@
 <script>
 export default {
     name: 'AccountSettings',
-
-    methods: {
-            initalizeMaterializeCSS() {
-                const ModalElems = document.querySelectorAll('.modal');
-                M.Modal.init(ModalElems, {});
-                M.updateTextFields() 
-            }
-        },
-
-    mounted() {
-        this.initalizeMaterializeCSS();
-    },
-
-    updated() {
-        this.initalizeMaterializeCSS();
-    }
 }
 </script>
 

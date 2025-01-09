@@ -14,7 +14,7 @@
             <div class="modal-content">
                 <h4>Add Duty</h4>
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Title" class="validate" id="dutyTitle">
+                    <input type="text" placeholder="Title" id="dutyTitle" v-model="duty.title">
                     <label for="dutyTitle">Duty Title</label>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="modal-content">
                 <h4>Add Officer</h4>
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Name" class="validate" id="officerName">
+                    <input type="text" placeholder="Name" id="officerName" v-model="officer.name">
                     <label for="officerName">Officer Name</label>
                 </div>
             </div>
@@ -52,20 +52,20 @@
 export default {
     name: 'AddPanel',
 
-    methods: {
-        initalizeMaterializeCSS() {
-            const ModalElems = document.querySelectorAll('.modal');
-            M.Modal.init(ModalElems, {});
-            M.updateTextFields() 
+    data() {
+        return {
+            duty: {
+                title: ''
+            },
+
+            officer: {
+                name: ''
+            }
         }
     },
 
-    mounted() {
-        this.initalizeMaterializeCSS();
-    },
-
-    updated() {
-        this.initalizeMaterializeCSS();
+    methods: {
+        
     }
 }
 </script>
