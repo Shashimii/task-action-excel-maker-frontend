@@ -91,7 +91,7 @@ export default {
 
                 M.toast({
                     html: '<p class="toast-text">Duty Assigned Successfully.<p>',
-                    displayLength: 6000
+                    displayLength: 8000
                 })
                 
                 // clear the data
