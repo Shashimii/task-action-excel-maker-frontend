@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div v-if="this.officers !=0">
+                    <div v-if="this.officers != 0">
                         <OfficerList></OfficerList>
                     </div>
                     <div v-else class="no-prompt">
