@@ -27,6 +27,7 @@
                 <div class="input-field col s12">
                     <input type="text" placeholder="Title" id="dutyTitle" v-model="editData.duty">
                     <label for="dutyTitle">Duty Title</label>
+                    <p v-if="validation.validateDuties" class="validation">{{ validation.validateDuties }}</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -72,6 +73,10 @@ export default {
             deletionInfo: {
                 duty: '',
                 index: null
+            },
+
+            validation: {
+                validateDuties: ''
             }
         }
     },
@@ -90,16 +95,35 @@ export default {
             }
         },
 
+        validateDuty() {
+            let isValid = true;
+            const regex = /^[a-zA-Z0-9.,\-! /]+$/;
+
+            if(this.editData.duty === '' || !regex.test(this.editData.duty.trim())) {
+                if (this.editData.duty === '' ) {
+                    this.validation.validateDuties = 'Duty Title cannot by empty'
+                    isValid = false
+                } else {
+                    this.validation.validateDuties = 'Duty Title Invalid Format'
+                    isValid = false
+                }
+            }
+
+            return isValid
+        },
+
         saveEdit() {
-            const modalInstance = M.Modal.getInstance(document.getElementById('editDutiesModal'));
-            modalInstance.close();
+            if (this.validateDuty()) {
+                const modalInstance = M.Modal.getInstance(document.getElementById('editDutiesModal'));
+                modalInstance.close();
 
-            this.duties[this.editData.index].duty = this.editData.duty;
+                this.duties[this.editData.index].duty = this.editData.duty;
 
-            M.toast({
-                html: '<p class="toast-text">Duty Title Edited Successfully.<p>',
-                displayLength: 8000
-            })
+                M.toast({
+                    html: '<p class="toast-text">Duty Title Edited Successfully.<p>',
+                    displayLength: 8000
+                })
+            }
         },
 
         deleteConfirmation(index) {
