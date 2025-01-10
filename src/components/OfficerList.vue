@@ -28,6 +28,7 @@
                 <div class="input-field col s12">
                     <input type="text" placeholder="Name" id="officerName" v-model="editData.name">
                     <label for="officerName">Officer Name</label>
+                    <p v-if="validation.validateOfficer" class="validation">{{ validation.validateOfficer }}</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -72,6 +73,10 @@ export default {
             deletionInfo: {
                 name: '',
                 index: null
+            },
+
+            validation: {
+                validateOfficer: ''
             }
         }
     },
@@ -90,16 +95,35 @@ export default {
             }
         },
 
+        validateOfficer() {
+            let isValid = true;
+            const regex = /^[a-zA-Z0-9.,\-! /]+$/;
+
+            if(this.editData.name === '' || !regex.test(this.editData.name.trim())) {
+                if (this.editData.name === '' ) {
+                    this.validation.validateOfficer = 'Officer Name cannot by empty'
+                    isValid = false
+                } else {
+                    this.validation.validateOfficer = 'Officer Name Invalid Format'
+                    isValid = false
+                }
+            }
+
+            return isValid
+        },
+
         saveEdit() {
-            const modalInstance = M.Modal.getInstance(document.getElementById('editOfficerModal'));
-            modalInstance.close();
+            if (this.validateOfficer()) {
+                const modalInstance = M.Modal.getInstance(document.getElementById('editOfficerModal'));
+                modalInstance.close();
 
-            this.officers[this.editData.index].name = this.editData.name;
+                this.officers[this.editData.index].name = this.editData.name;
 
-            M.toast({
-                html: '<p class="toast-text">Officer Edited Successfully.<p>',
-                displayLength: 8000
-            })
+                M.toast({
+                    html: '<p class="toast-text">Officer Edited Successfully.<p>',
+                    displayLength: 8000
+                })
+            }
         },
 
         deleteConfirmation(index) {
