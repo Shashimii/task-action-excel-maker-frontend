@@ -13,11 +13,48 @@
                 <tbody>
                     <tr v-for="(officers, index) in this.officers" :key="index">
                         <td>{{ officers.name }}</td>
-                        <td><button class="btn-small waves-effect waves-light blue darken-4">Edit</button></td>
-                        <td><button class="btn-small waves-effect waves-light red darken-4">Delete</button></td>
+                        <td><button class="btn-small waves-effect waves-light blue darken-4" @click="editOfficer(index)">Edit</button></td>
+                        <td><button class="btn-small waves-effect waves-light red darken-4" @click="deleteConfirmation(index)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <div id="editOfficerModal" class="modal">
+        <form @submit.prevent="saveEdit(editData.index)">
+            <div class="modal-content">
+                <h4>Edit Officer</h4>
+                <div class="input-field col s12">
+                    <input type="text" placeholder="Name" id="officerName" v-model="editData.name">
+                    <label for="officerName">Officer Name</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a @click.prevent="cancel" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <button class="btn waves-effect waves-light green acccent-4" type="submit">
+                    Edit Officer
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="deleteOfficerModal" class="modal">
+        <div class="modal-content">
+            <h4>Are you Sure to Delete Officer</h4>
+            <div class="row">
+                <div class="col s12">
+                    <p class="delete-officer-name">{{ deletionInfo.name }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a @click.prevent="cancel" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <button class="modal-close btn waves-effect waves-light red accent-4" @click="deleteOfficer(deletionInfo.index)">
+                Delete Officer
+                <i class="material-icons left">delete_forever</i>
+            </button>
         </div>
     </div>
 </template>
@@ -25,15 +62,104 @@
 <script>
 export default {
     name: 'OfficerList',
+    data() {
+        return {
+            editData: {
+                name: '',
+                index: null
+            },
+            
+            deletionInfo: {
+                name: '',
+                index: null
+            }
+        }
+    },
 
     methods: {
-        //  delete and edit methods
+        editOfficer(index) {
+            const modalInstance = M.Modal.getInstance(document.getElementById('editOfficerModal'));
+            modalInstance.open();
+            this.setEditData(index);
+        },
+
+        setEditData(index) {
+            this.editData = {
+                name: this.officers[index].name,
+                index: index
+            }
+        },
+
+        saveEdit() {
+            const modalInstance = M.Modal.getInstance(document.getElementById('editOfficerModal'));
+            modalInstance.close();
+
+            this.officers[this.editData.index].name = this.editData.name;
+
+            M.toast({
+                html: '<p class="toast-text">Officer Edited Successfully.<p>',
+                displayLength: 8000
+            })
+        },
+
+        deleteConfirmation(index) {
+            const modalInstance = M.Modal.getInstance(document.getElementById('deleteOfficerModal'));
+            modalInstance.open();
+            this.setDeleteInfo(index);
+        },
+
+        setDeleteInfo(index) {
+            this.deletionInfo = {
+                name: this.officers[index].name,
+                index: index
+            }
+        },
+
+        deleteOfficer(deleteIndex) {
+            this.officers.splice(deleteIndex, 1);
+            const modalInstance = M.Modal.getInstance(document.getElementById('deleteOfficerModal'));
+            modalInstance.close();
+
+            M.toast({
+                html: '<p class="toast-text">Officer Deleted Successfully.<p>',
+                displayLength: 8000
+            })
+        },
+
+        initalizeMaterializeCSS() {
+            M.updateTextFields()
+        },
     },
 
     computed: {
         officers() {
             return this.$store.getters.officers
         }
+    },
+
+    mounted() {
+        this.initalizeMaterializeCSS()
+    },
+
+    updated() {
+        this.initalizeMaterializeCSS()
     }
+
 }
 </script>
+
+<style scoped>
+.modal-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-officer-name {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.validation {
+    color: red;
+}
+</style>
