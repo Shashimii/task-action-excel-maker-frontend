@@ -88,9 +88,12 @@ export default {
                 
                 modal.close(); // close the modal
                 this.$store.dispatch('assignDuty', this.assignData); // store the submitted data
-                
-                console.table(this.assigned);
 
+                M.toast({
+                    html: '<p class="toast-text">Duty Assigned Successfully.<p>',
+                    displayLength: 6000
+                })
+                
                 // clear the data
                 this.assignData = {
                     officer: '',
