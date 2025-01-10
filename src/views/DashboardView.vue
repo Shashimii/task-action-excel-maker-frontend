@@ -14,6 +14,7 @@
 import WebNavbar from '@/components/WebNavbar.vue';
 import DashboardCards from '@/components/DashboardCards.vue';
 import DashboardMap from '@/components/DashboardMap.vue';
+
 export default {
     name: 'DashboardView',
     components: {
