@@ -141,6 +141,8 @@ export default {
 
             // validation flag
             let isValid = true;
+            // validate format
+            const regex = /^\(\d+\)$/;
 
             // validate every input field
             if(this.assignData.officerIndex === '') {
@@ -160,6 +162,11 @@ export default {
 
             if(this.assignData.code === '') {
                 this.validation.code = 'ODTS Code cannot be empty.'
+                isValid = false;
+            } 
+            
+            if(!regex.test(this.assignData.code)) {
+                this.validation.code = 'ODTS Code Invalid Format'
                 isValid = false;
             }
 
