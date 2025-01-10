@@ -1,5 +1,11 @@
 <template>
-    <div ref="table_container" class="map-table-container"></div>
+    <div v-if="this.officers.length != 0 && this.duties.length != 0">
+        <div ref="table_container" class="map-table-container"></div>
+    </div>
+    <div v-else class="no-prompt">
+        <p class="no-prompt-primary-text">Not Enough Duties and Officer to show IPCR Tracker.</p>
+        <p class="no-prompt-secondary-text">Add Enough Duties and Officer on Settings.</p>
+    </div>
 </template>
 
 <script>
@@ -112,11 +118,12 @@ export default {
     },
 
     mounted() {
-        this.createTable();
-        const container = this.$refs.table_container;
-        container.appendChild(this.createTable());
-        this.assignDuty();
-        
+        if (this.officers.length != 0 && this.duties.length != 0) {
+            this.createTable();
+            const container = this.$refs.table_container;
+            container.appendChild(this.createTable());
+            this.assignDuty();
+        }
     }
 }
 </script>
