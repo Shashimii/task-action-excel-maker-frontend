@@ -66,19 +66,44 @@ export default {
 
     methods: {
         submitDuties() {
+            const modalInstance = M.Modal.getInstance(document.getElementById('AddDutiesModal'));
+            modalInstance.close();
             this.$store.dispatch('addDuty', this.duty);
-            console.table(this.duties)
+
+            M.toast({
+                html: '<p class="toast-text">Duty Title Added Successfully.<p>',
+                displayLength: 8000
+            })
         },
 
         submitOfficer() {
+            const modalInstance = M.Modal.getInstance(document.getElementById('AddOfficerModal'));
+            modalInstance.close();
             this.$store.dispatch('addOfficer', this.officer);
-        }
+
+            M.toast({
+                html: '<p class="toast-text">Officer Added Successfully.<p>',
+                displayLength: 8000
+            })
+        },
+
+        initalizeMaterializeCSS() {
+            M.updateTextFields()
+        },
     },
 
     computed: {
         duties() {
             return this.$store.getters.duties
-        }
+        },
+    },
+
+    mounted() {
+        this.initalizeMaterializeCSS()
+    },
+
+    updated() {
+        this.initalizeMaterializeCSS()
     }
 }
 </script>
