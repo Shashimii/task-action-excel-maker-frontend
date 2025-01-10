@@ -14,7 +14,7 @@
                     <i class="material-icons">insert_drive_file</i>
                     {{ assign.code }}
                 </div>
-                <a class="waves-effect waves-light btn red accent-4" @click="deleteAssigned(index)">
+                <a class="waves-effect waves-light btn red accent-4 modal-trigger" @click.stop="deleteConfirmation(index)">
                     <i class="material-icons left">delete_forever</i>
                     DELETE
                 </a>
@@ -41,7 +41,7 @@
                                     <p>{{ assign.officer }}</p>
                                 </div>
                                 <div class="body-item">
-                                    <p class="body-item-title"><i class="material-icons">event</i> Due Date: </p>
+                                    <p class="body-item-title"><i class="material-icons">event</i> Assigned Date: </p>
                                     <p>{{ assign.date }}</p>
                                 </div>
                             </div>
@@ -51,15 +51,100 @@
             </div>
         </li>
     </ul>
+
+    <div id="deleteInfoModal" class="modal">
+        <div class="modal-content">
+            <h4>Are you Sure to Delete this Assigned Duty</h4>
+            <div class="row">
+                <div class="col m12 l6">
+                    <div class="body-primary-container">
+                        <div class="body-item">
+                            <p class="body-item-title"><i class="material-icons">assignment_late</i> Duty Name: </p>
+                            <p>{{ deletionInfo.deleteDuty }}</p>
+                        </div>
+                        <div class="body-item">
+                            <p class="body-item-title"><i class="material-icons">insert_drive_file</i> ODTS Code: </p>
+                            <p>{{ deletionInfo.deleteCode }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col m12 l6">
+                    <div class="body-secondary-container">
+                        <div class="body-item">
+                            <p class="body-item-title"><i class="material-icons">person</i> Assigned to: </p>
+                            <p>{{ deletionInfo.deleteOfficer }}</p>
+                        </div>
+                        <div class="body-item">
+                            <p class="body-item-title"><i class="material-icons">event</i> Assigned Date: </p>
+                            <p>{{ deletionInfo.deleteDate }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <button class="btn waves-effect waves-light red accent-4" @click="deleteAssigned(deletionInfo.deleteIndex)">
+                <i class="material-icons left">delete_forever</i>
+                DELETE
+            </button>
+        </div>
+    </div>
 </template>
 
 <script>
+
 export default {
     name: 'AssignedDutiesList',
 
+    data() {
+        return {
+            deletionInfo: {
+                deleteDuty: '',
+                deleteCode: '',
+                deleteOfficer: '',
+                deleteDate: '',
+                deleteIndex: null
+            }
+        }
+    },
+
     methods: {
-        deleteAssigned(index) {
-            this.assigned.splice(index, 1);
+        deleteConfirmation(index) {
+            const modalInstance = M.Modal.getInstance(document.getElementById('deleteInfoModal'));
+            modalInstance.open();
+            this.setDeleteInfo(index);
+        },
+
+        setDeleteInfo(infoIndex) {
+            this.deletionInfo = {
+                deleteDuty: this.assigned[infoIndex].duty,
+                deleteCode: this.assigned[infoIndex].code,
+                deleteOfficer: this.assigned[infoIndex].officer,
+                deleteDate: this.assigned[infoIndex].date,
+                deleteIndex: infoIndex
+            }
+        },
+
+        deleteAssigned(deleteIndex) {
+            this.assigned.splice(deleteIndex, 1);
+            const modalInstance = M.Modal.getInstance(document.getElementById('deleteInfoModal'));
+            modalInstance.close();
+
+            M.toast({
+                html: '<p class="toast-text">Duty Deleted Successfully.<p>',
+                displayLength: 8000
+            })
+        },
+
+        resetDeleteInfo() {
+            this.deletionInfo = {
+                deleteDuty: '',
+                deleteCode: '',
+                deleteOfficer: '',
+                deleteDate: '',
+                deleteIndex: null
+            }
         },
 
         initalizeMaterializeCSS() {
