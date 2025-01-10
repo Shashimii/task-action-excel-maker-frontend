@@ -160,15 +160,15 @@ export default {
                 isValid = false;
             }
 
-            if(this.assignData.code === '') {
-                this.validation.code = 'ODTS Code cannot be empty.'
-                isValid = false;
+            if(this.assignData.code === '' || !regex.test(this.assignData.code)) {
+                if (this.assignData.code === '') {
+                    this.validation.code = 'ODTS Code cannot be empty.'
+                    isValid = false;
+                } else {
+                    this.validation.code = 'ODTS Code Invalid Format'
+                    isValid = false;
+                }
             } 
-            
-            if(!regex.test(this.assignData.code)) {
-                this.validation.code = 'ODTS Code Invalid Format'
-                isValid = false;
-            }
 
             // return flags
             return isValid;
