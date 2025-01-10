@@ -7,7 +7,7 @@
         <DashboardMap></DashboardMap>
 
         <h3>Duties Assigned</h3>
-        <div v-if="this.assigned.length != '0'">
+        <div v-if="this.assigned.length != 0">
             <AssignedDutiesList></AssignedDutiesList>
         </div>
         <div v-else class="no-prompt">
