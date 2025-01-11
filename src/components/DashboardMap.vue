@@ -105,7 +105,7 @@ export default {
 
         assigned() {
             return this.$store.getters.assigned;
-        }
+        },
     },
 
     watch: {

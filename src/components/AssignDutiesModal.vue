@@ -104,6 +104,8 @@ export default {
                     dutyIndex: '' 
                 }
                 inputDate.value = ''; // clear the datepicker
+
+                console.table(this.assigned)
             }
         },
 

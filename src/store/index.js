@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import axios from 'axios'
 
 export default createStore({
   state: {
@@ -22,12 +23,15 @@ export default createStore({
     ],
 
     assigned: [],
+
+    apiTestData: []
   },
 
   getters: {
     duties: state => state.duties,
     officers: state => state.officers,
-    assigned: state => state.assigned
+    assigned: state => state.assigned,
+    apiTestData: state => state.apiTestData
   },
 
   mutations: {
@@ -41,6 +45,10 @@ export default createStore({
 
     pushAddOfficer(state, officerData) {
       state.officers.push({ ...officerData});
+    },
+
+    set_api_test(state, apiTestData) {
+      state.apiTestData = apiTestData;
     }
   },
 
@@ -55,6 +63,15 @@ export default createStore({
 
     addOfficer({ commit }, officerData) {
       commit('pushAddOfficer', officerData);
+    },
+
+    async apiTest({ commit }) {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/fetchDuties')
+        commit('set_api_test', response.data);
+      } catch (error) {
+        console.log('unable to fetch data: ', error.message)
+      }
     }
   },
   
