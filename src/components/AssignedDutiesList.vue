@@ -84,7 +84,7 @@
         </div>
         <div class="modal-footer">
             <a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-            <button class="btn waves-effect waves-light red accent-4" @click="deleteAssigned(deletionInfo.deleteIndex)">
+            <button class="btn waves-effect waves-light red accent-4" @click="deleteAssigned(deletionInfo.deleteId)">
                 <i class="material-icons left">delete_forever</i>
                 DELETE
             </button>
@@ -100,11 +100,11 @@ export default {
     data() {
         return {
             deletionInfo: {
+                deleteId: null,
                 deleteDuty: '',
                 deleteCode: '',
                 deleteOfficer: '',
                 deleteDate: '',
-                deleteIndex: null
             }
         }
     },
@@ -118,16 +118,16 @@ export default {
 
         setDeleteInfo(infoIndex) {
             this.deletionInfo = {
+                deleteId: this.assigned[infoIndex].id,
                 deleteDuty: this.assigned[infoIndex].duty,
                 deleteCode: this.assigned[infoIndex].code,
                 deleteOfficer: this.assigned[infoIndex].officer,
                 deleteDate: this.assigned[infoIndex].date,
-                deleteIndex: infoIndex
             }
         },
 
-        deleteAssigned(deleteIndex) {
-            this.assigned.splice(deleteIndex, 1);
+        deleteAssigned(deleteId) {
+            this.$store.dispatch('deleteAssignedData', deleteId)
             const modalInstance = M.Modal.getInstance(document.getElementById('deleteInfoModal'));
             modalInstance.close();
 

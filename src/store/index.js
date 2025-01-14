@@ -70,6 +70,19 @@ export default createStore({
       } catch (error) {
         console.log('unable to get assigned duties data: ', error.message)
       }
+    },
+
+    async deleteAssignedData({ dispatch }, deleteId) {
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/deleteAssigned/${deleteId}`);
+
+        if (response.status === 204) {
+          dispatch('requestAssignedData');
+        }
+
+      } catch (error) {
+        console.log('unable to delete assigned duty', error.message)
+      }
     }
   },
   
