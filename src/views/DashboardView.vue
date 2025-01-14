@@ -22,18 +22,6 @@ export default {
         DashboardCards,
         DashboardMap
     },
-
-    computed: {
-        apiTestData() {
-            return this.$store.getters.apiTestData;
-        }
-    },
-
-    mounted() {
-        this.$store.dispatch('apiTest')
-        console.log(this.apiTestData)
-    }
-    
 }
 </script>
 
