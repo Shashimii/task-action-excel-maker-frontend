@@ -72,6 +72,30 @@ export default createStore({
       }
     },
 
+    async deleteOfficerData({ dispatch }, deleteId) {
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/deleteOfficer/${deleteId}`);
+
+        if (response.status === 204) {
+          dispatch('requestOfficersData');
+        }
+      } catch (error) {
+        console.log('unable to delete officer', error.message);
+      }
+    },
+
+    async deleteDutyData({ dispatch }, deleteId) {
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/deleteDuty/${deleteId}`);
+        
+        if (response.status === 204) {
+          dispatch('requestDutiesData');
+        }
+      } catch (error) {
+        console.log('unable to delete duty', error.message)
+      }
+    },
+
     async deleteAssignedData({ dispatch }, deleteId) {
       try {
         const response = await axios.delete(`http://127.0.0.1:8000/api/deleteAssigned/${deleteId}`);

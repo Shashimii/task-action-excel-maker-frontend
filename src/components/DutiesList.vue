@@ -51,7 +51,7 @@
         </div>
         <div class="modal-footer">
             <a @click.prevent="cancel" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-            <button class="modal-close btn waves-effect waves-light red accent-4" @click="deleteDuty(deletionInfo.index)">
+            <button class="modal-close btn waves-effect waves-light red accent-4" @click="deleteDuty(deletionInfo.id)">
                 Delete Duty Title
                 <i class="material-icons left">delete_forever</i>
             </button>
@@ -71,8 +71,8 @@ export default {
             },
 
             deletionInfo: {
-                duty: '',
-                index: null
+                id: null,
+                duty: ''
             },
 
             validation: {
@@ -134,13 +134,13 @@ export default {
 
         setDeleteInfo(index) {
             this.deletionInfo = {
+                id: this.duties[index].id,
                 duty: this.duties[index].duty,
-                index: index
             }
         },
 
-        deleteDuty(deleteIndex) {
-            this.duties.splice(deleteIndex, 1);
+        deleteDuty(dutyId) {
+            this.$store.dispatch('deleteDutyData', dutyId);
             const modalInstance = M.Modal.getInstance(document.getElementById('deleteDutiesModal'));
             modalInstance.close();
 
