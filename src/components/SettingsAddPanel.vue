@@ -79,11 +79,6 @@ export default {
                 modalInstance.close();
 
                 this.postDuty(dutyData)
-
-                M.toast({
-                    html: '<p class="toast-text">Duty Title Added Successfully.<p>',
-                    displayLength: 8000
-                })
             }
         },
 
@@ -95,9 +90,17 @@ export default {
 
                 if (response.status === 201) {
                     this.$store.dispatch('requestDutiesData');
+                    M.toast({
+                        html: '<p class="toast-text">Duty Title Added Successfully.<p>',
+                        displayLength: 8000
+                    })
                 }
             } catch (error) {
-                console.log('unable to post duty: ', error.response.data)
+                // console.log('unable to post duty: ', error.response.data)
+                M.toast({
+                    html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+                    displayLength: 4000
+                })
             }
         },
 
@@ -107,11 +110,6 @@ export default {
                 modalInstance.close();
 
                 this.postOfficer(officerData);
-
-                M.toast({
-                    html: '<p class="toast-text">Officer Added Successfully.<p>',
-                    displayLength: 8000
-                })
             }
         },
 
@@ -123,9 +121,17 @@ export default {
 
                 if (response.status === 201) {
                     this.$store.dispatch('requestOfficersData');
+                    M.toast({
+                        html: '<p class="toast-text">Officer Added Successfully.<p>',
+                        displayLength: 8000
+                    })
                 }
             } catch (error) {
-                console.log('unable to post officer: ', error.response.data)
+                // console.log('unable to post officer: ', error.response.data)
+                M.toast({
+                    html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+                    displayLength: 4000
+                })
             }
         },
 
