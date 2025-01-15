@@ -31,6 +31,9 @@
     </div>
     <!-- footer space -->
     <div style="height: 10rem;"></div>
+    <div class="page-footer white black-text">
+        <p>v0.8 - beta <i class="fa-brands fa-github"></i> <a href="https://github.com/Shashimii" class="green-text accent-4">Shashimii</a></p>
+    </div>
 </template>
 <script>
 import WebNavbar from '@/components/WebNavbar.vue';

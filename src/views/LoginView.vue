@@ -33,11 +33,4 @@ export default {
     align-items: center;
     justify-content: space-around;
 }
-
-.page-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
 </style>

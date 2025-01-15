@@ -83,4 +83,11 @@
     font-weight: 700;
     color: #ffeb3b;
 }
+
+.page-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
 </style>
