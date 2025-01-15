@@ -15,14 +15,6 @@ export default createStore({
   },
 
   mutations: {
-    pushAddDuty(state, dutyData) {
-      state.duties.push({ ...dutyData});
-    },
-
-    pushAddOfficer(state, officerData) {
-      state.officers.push({ ...officerData});
-    },
-
     save_duties_data(state, duties) {
       state.duties = duties;
     },
@@ -37,14 +29,6 @@ export default createStore({
   },
 
   actions: {
-    addDuty({ commit }, dutyData) {
-      commit('pushAddDuty', dutyData);
-    },
-
-    addOfficer({ commit }, officerData) {
-      commit('pushAddOfficer', officerData);
-    },
-
     // request data
 
     async requestDutiesData({ commit }) {

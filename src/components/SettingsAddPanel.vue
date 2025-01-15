@@ -10,7 +10,7 @@
     </div>
 
     <div id="AddDutiesModal" class="modal">
-        <form @submit.prevent="submitDuties">
+        <form @submit.prevent="submitDuties(duty)">
             <div class="modal-content">
                 <h4>Add Duty</h4>
                 <div class="input-field col s12">
@@ -30,7 +30,7 @@
     </div>
 
     <div id="AddOfficerModal" class="modal">
-        <form @submit.prevent="submitOfficer">
+        <form @submit.prevent="submitOfficer(officer)">
             <div class="modal-content">
                 <h4>Add Officer</h4>
                 <div class="input-field col s12">
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'AddPanel',
 
@@ -72,11 +73,12 @@ export default {
     },
 
     methods: {
-        submitDuties() {
+        submitDuties(dutyData) {
             if (this.validateDuty()) {
                 const modalInstance = M.Modal.getInstance(document.getElementById('AddDutiesModal'));
                 modalInstance.close();
-                this.$store.dispatch('addDuty', this.duty);
+
+                this.postDuty(dutyData)
 
                 M.toast({
                     html: '<p class="toast-text">Duty Title Added Successfully.<p>',
@@ -85,16 +87,45 @@ export default {
             }
         },
 
-        submitOfficer() {
+        async postDuty(dutyData) {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/addDuty', {
+                    duty: dutyData.duty,
+                })
+
+                if (response.status === 201) {
+                    this.$store.dispatch('requestDutiesData');
+                }
+            } catch (error) {
+                console.log('unable to post duty: ', error.response.data)
+            }
+        },
+
+        submitOfficer(officerData) {
             if (this.validateOfficer()) {
                 const modalInstance = M.Modal.getInstance(document.getElementById('AddOfficerModal'));
                 modalInstance.close();
-                this.$store.dispatch('addOfficer', this.officer);
+
+                this.postOfficer(officerData);
 
                 M.toast({
                     html: '<p class="toast-text">Officer Added Successfully.<p>',
                     displayLength: 8000
                 })
+            }
+        },
+
+        async postOfficer(officerData) {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/addOfficer', {
+                    name: officerData.name,
+                })
+
+                if (response.status === 201) {
+                    this.$store.dispatch('requestOfficersData');
+                }
+            } catch (error) {
+                console.log('unable to post officer: ', error.response.data)
             }
         },
 
