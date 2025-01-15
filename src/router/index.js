@@ -8,22 +8,26 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    component: LoginView
+    component: LoginView,
+    meta: { title: 'Excel Maker - Login' }
   },
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: DashboardView
+    component: DashboardView,
+    meta: { requiresAuth: true,  title: 'Excel Maker - Dashboard' }
   },
   {
     path: '/assign-duties',
     name: 'assign-duties',
-    component: AssignDutiesView
+    component: AssignDutiesView,
+    meta: { requiresAuth: true, title: 'Excel Maker - Assign Duties' }
   },
   {
     path: '/settings',
     name: 'settings',
-    component: SettingsView
+    component: SettingsView,
+    meta: { requiresAuth: true, title: 'Excel Maker - Settings' }
   },
 ]
 
@@ -31,5 +35,20 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('authToken');
+  const title = to.meta.title || 'Excel Maker';
+  if (to.meta.requiresAuth && !token) {
+    document.title = title;
+    next('/');
+  } else if (to.path === '/' && token){
+    document.title = title;
+    next('/dashboard');
+  } else {
+    document.title = title;
+    next();
+  }
+});
 
 export default router
