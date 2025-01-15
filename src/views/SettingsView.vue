@@ -67,6 +67,8 @@ export default {
     },
 
     mounted() {
+        this.$store.dispatch('requestDutiesData');
+        this.$store.dispatch('requestOfficersData');
         this.initalizeMaterializeCSS();
     },
 
