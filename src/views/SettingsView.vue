@@ -29,6 +29,8 @@
             </div>
         </div>
     </div>
+    <!-- footer space -->
+    <div style="height: 10rem;"></div>
 </template>
 <script>
 import WebNavbar from '@/components/WebNavbar.vue';

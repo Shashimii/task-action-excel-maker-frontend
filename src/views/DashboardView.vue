@@ -3,11 +3,15 @@
     <div class="container">
         <h3>Dashboard</h3>
         <DashboardCards></DashboardCards>
-        <h3>IPCR Tracker</h3>
-        <div>
-            <DashboardMap></DashboardMap>
+        <div class="hide-on-small-only">
+            <h3>IPCR Tracker</h3>
+            <div>
+                <DashboardMap></DashboardMap>
+            </div>
         </div>
     </div>
+    <!-- footer space -->
+    <div style="height: 10rem;"></div>
 </template>
 
 <script>

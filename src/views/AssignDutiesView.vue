@@ -23,6 +23,8 @@
             <i class="large material-icons">mode_edit</i>
         </a>
     </div>
+    <!-- footer space -->
+    <div style="height: 10rem;"></div>
 </template>
 
 <script>
