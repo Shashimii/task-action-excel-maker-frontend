@@ -21,7 +21,7 @@
     </div>
 
     <div id="editDutiesModal" class="modal">
-        <form @submit.prevent="saveEdit(editData.index)">
+        <form @submit.prevent="saveEdit(editData)">
             <div class="modal-content">
                 <h4>Edit Duty</h4>
                 <div class="input-field col s12">
@@ -66,8 +66,8 @@ export default {
     data() {
         return {
             editData: {
+                id: null,
                 duty: '',
-                index: null
             },
 
             deletionInfo: {
@@ -90,8 +90,8 @@ export default {
 
         setEditData(index) {
             this.editData = {
-                duty: this.duties[index].duty,
-                index: index
+                id: this.duties[index].id,
+                duty: this.duties[index].duty
             }
         },
 
@@ -112,12 +112,12 @@ export default {
             return isValid
         },
 
-        saveEdit() {
+        saveEdit(editData) {
             if (this.validateDuty()) {
                 const modalInstance = M.Modal.getInstance(document.getElementById('editDutiesModal'));
                 modalInstance.close();
 
-                this.duties[this.editData.index].duty = this.editData.duty;
+                this.$store.dispatch('editDutyData', editData);
 
                 M.toast({
                     html: '<p class="toast-text">Duty Title Edited Successfully.<p>',

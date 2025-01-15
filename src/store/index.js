@@ -45,6 +45,8 @@ export default createStore({
       commit('pushAddOfficer', officerData);
     },
 
+    // request data
+
     async requestDutiesData({ commit }) {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/fetchDuties')
@@ -71,6 +73,34 @@ export default createStore({
         console.log('unable to get assigned duties data: ', error.message)
       }
     },
+
+    // edit data
+
+    async editOfficerData({ dispatch }, editData) {
+      try {
+        const response = await axios.patch(`http://127.0.0.1:8000/api/editOfficer/${editData.id}`,editData);
+
+        if (response.status === 204) {
+          dispatch('requestOfficersData');
+        }
+      } catch (error) {
+        console.log('unable to edit officer', error.message);
+      }
+    },
+
+    async editDutyData({ dispatch }, editData) {
+      try {
+        const response = await axios.patch(`http://127.0.0.1:8000/api/editDuty/${editData.id}`,editData);
+
+        if (response.status === 204) {
+          dispatch('requestDutiesData');
+        }
+      } catch (error) {
+        console.log('unable to edit duty', error.message);
+      }
+    },
+
+    // delete data
 
     async deleteOfficerData({ dispatch }, deleteId) {
       try {

@@ -22,7 +22,7 @@
     </div>
 
     <div id="editOfficerModal" class="modal">
-        <form @submit.prevent="saveEdit(editData.index)">
+        <form @submit.prevent="saveEdit(editData)">
             <div class="modal-content">
                 <h4>Edit Officer</h4>
                 <div class="input-field col s12">
@@ -66,8 +66,8 @@ export default {
     data() {
         return {
             editData: {
+                id: null,
                 name: '',
-                index: null
             },
             
             deletionInfo: {
@@ -90,8 +90,8 @@ export default {
 
         setEditData(index) {
             this.editData = {
+                id: this.officers[index].id,
                 name: this.officers[index].name,
-                index: index
             }
         },
 
@@ -112,12 +112,12 @@ export default {
             return isValid
         },
 
-        saveEdit() {
+        saveEdit(editData) {
             if (this.validateOfficer()) {
                 const modalInstance = M.Modal.getInstance(document.getElementById('editOfficerModal'));
                 modalInstance.close();
 
-                this.officers[this.editData.index].name = this.editData.name;
+                this.$store.dispatch('editOfficerData', editData);
 
                 M.toast({
                     html: '<p class="toast-text">Officer Edited Successfully.<p>',
