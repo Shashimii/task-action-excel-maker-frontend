@@ -98,11 +98,6 @@ export default {
                 
                 modal.close(); // close the modal
                 this.postAssigned(this.assignData) // post assigned duty data -> database
-
-                M.toast({
-                    html: '<p class="toast-text">Duty Assigned Successfully.<p>',
-                    displayLength: 8000
-                })
                 
                 // clear the data
                 this.assignData = {
@@ -206,9 +201,17 @@ export default {
 
                 if (response.status === 201) {
                     this.reloadAssigned();
+                    M.toast({
+                        html: '<p class="toast-text">Duty Assigned Successfully.<p>',
+                        displayLength: 4000
+                    })
                 }
             } catch (error) {
-                console.log('unable to post assigned: ', error.response.data)
+                // console.log('unable to post assigned: ', error.response.data)
+                M.toast({
+                    html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+                    displayLength: 4000
+                })
             }
         },
 

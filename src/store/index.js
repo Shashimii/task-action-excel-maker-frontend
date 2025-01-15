@@ -66,9 +66,17 @@ export default createStore({
 
         if (response.status === 204) {
           dispatch('requestOfficersData');
+          M.toast({
+            html: '<p class="toast-text">Officer Edited Successfully.<p>',
+            displayLength: 8000
+          })
         }
       } catch (error) {
-        console.log('unable to edit officer', error.message);
+        // console.log('unable to edit officer', error.message);
+        M.toast({
+          html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+          displayLength: 4000
+        })
       }
     },
 
@@ -78,9 +86,17 @@ export default createStore({
 
         if (response.status === 204) {
           dispatch('requestDutiesData');
+          M.toast({
+            html: '<p class="toast-text">Duty Title Edited Successfully.<p>',
+            displayLength: 8000
+          })
         }
       } catch (error) {
-        console.log('unable to edit duty', error.message);
+        // console.log('unable to edit duty', error.message);
+        M.toast({
+          html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+          displayLength: 4000
+        })
       }
     },
 
@@ -92,9 +108,17 @@ export default createStore({
 
         if (response.status === 204) {
           dispatch('requestOfficersData');
+          M.toast({
+            html: '<p class="toast-text">Officer Deleted Successfully.<p>',
+            displayLength: 8000
+          })
         }
       } catch (error) {
-        console.log('unable to delete officer', error.message);
+        // console.log('unable to delete officer', error.message);
+        M.toast({
+          html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+          displayLength: 4000
+        })
       }
     },
 
@@ -104,9 +128,17 @@ export default createStore({
         
         if (response.status === 204) {
           dispatch('requestDutiesData');
+          M.toast({
+            html: '<p class="toast-text">Duty Title Deleted Successfully.<p>',
+            displayLength: 8000
+          })
         }
       } catch (error) {
-        console.log('unable to delete duty', error.message)
+        // console.log('unable to delete duty', error.message)
+        M.toast({
+          html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+          displayLength: 4000
+        })
       }
     },
 
@@ -119,7 +151,11 @@ export default createStore({
         }
 
       } catch (error) {
-        console.log('unable to delete assigned duty', error.message)
+        // console.log('unable to delete assigned duty', error.message)
+        M.toast({
+          html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+          displayLength: 4000
+        })
       }
     }
   },

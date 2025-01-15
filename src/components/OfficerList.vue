@@ -118,11 +118,6 @@ export default {
                 modalInstance.close();
 
                 this.$store.dispatch('editOfficerData', editData);
-
-                M.toast({
-                    html: '<p class="toast-text">Officer Edited Successfully.<p>',
-                    displayLength: 8000
-                })
             }
         },
 
@@ -143,11 +138,6 @@ export default {
             this.$store.dispatch('deleteOfficerData', deleteId);
             const modalInstance = M.Modal.getInstance(document.getElementById('deleteOfficerModal'));
             modalInstance.close();
-
-            M.toast({
-                html: '<p class="toast-text">Officer Deleted Successfully.<p>',
-                displayLength: 8000
-            })
         },
 
         initalizeMaterializeCSS() {
