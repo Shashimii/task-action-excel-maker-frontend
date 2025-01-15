@@ -1,10 +1,10 @@
 <template>
     <WebNavbar></WebNavbar>
     <div class="container">
-        <h3>Dashboard</h3>
+        <h3><i class="fa-solid fa-chart-simple"></i> Dashboard</h3>
         <DashboardCards></DashboardCards>
         <div class="hide-on-small-only">
-            <h3>IPCR Tracker</h3>
+            <h3><i class="fa-solid fa-table"></i> IPCR Tracker</h3>
             <div>
                 <DashboardMap></DashboardMap>
             </div>

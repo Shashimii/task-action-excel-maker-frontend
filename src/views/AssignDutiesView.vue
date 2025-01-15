@@ -3,10 +3,10 @@
     
     <div class="container">
         
-        <h3 class="center">IPCR Tracker</h3>
+        <h3 class="center"><i class="fa-solid fa-table"></i> IPCR Tracker</h3>
         <DashboardMap></DashboardMap>
 
-        <h3>Duties Assigned</h3>
+        <h3><i class="fa-solid fa-map-pin"></i> Duties Assigned</h3>
         <div v-if="this.assigned.length != 0">
             <AssignedDutiesList></AssignedDutiesList>
         </div>

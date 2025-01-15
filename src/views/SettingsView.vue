@@ -1,7 +1,7 @@
 <template>
     <WebNavbar></WebNavbar>
     <div class="container">
-        <h3>Settings</h3>
+        <h3><i class="fa-solid fa-gear"></i> Settings</h3>
         <div class="row">
             <div class="col s12 m3">
                 <AccountSettings></AccountSettings>
