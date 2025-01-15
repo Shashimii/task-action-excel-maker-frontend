@@ -53,6 +53,9 @@ export default {
             const cells = document.querySelectorAll('#mapTable td.map-td');
             cells.forEach(cell => {
                 cell.innerHTML = ''
+                if (cell.classList.contains('green') && cell.classList.contains('accent-1')) {
+                    cell.classList.remove('green', 'accent-1');
+                }
             })
 
             assignedList.forEach((assign) => {
@@ -60,8 +63,7 @@ export default {
                 const cell = document.getElementById(cellIndex);
                 
                 if (cell) {
-                    cell.classList.add('green')
-                    cell.classList.add('accent-1')
+                    cell.classList.add('green', 'accent-1')
                     cell.innerHTML += '<p>' + assign.date + ' ' + assign.code + '</p>';
                 } else {
                     console.error('unable to find cell');
