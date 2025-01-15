@@ -47,6 +47,7 @@ export default {
     name: 'DashboardMap',
 
     methods: {
+        // this method for rendering the assigned duty to the table cell is not optimized and created on vanila javascript
         assignDuty() {
             const assignedList = this.assigned;
             const cells = document.querySelectorAll('#mapTable td.map-td');
@@ -59,6 +60,8 @@ export default {
                 const cell = document.getElementById(cellIndex);
                 
                 if (cell) {
+                    cell.classList.add('green')
+                    cell.classList.add('accent-1')
                     cell.innerHTML += '<p>' + assign.date + ' ' + assign.code + '</p>';
                 } else {
                     console.error('unable to find cell');
