@@ -68,6 +68,10 @@ export default {
 
         officers() {
             return this.$store.getters.officers;
+        },
+
+        userData() {
+            return this.$store.getters.userData;
         }
     },
 
