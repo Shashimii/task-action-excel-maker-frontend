@@ -26,8 +26,8 @@
             <div class="modal-content">
                 <h4>Edit Officer</h4>
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Name" id="officerName" v-model="editData.name">
-                    <label for="officerName">Officer Name</label>
+                    <input type="text" placeholder="Name" id="officerEditName" v-model="editData.name">
+                    <label for="officerEditName">Officer Name</label>
                     <p v-if="validation.validateOfficer" class="validation">{{ validation.validateOfficer }}</p>
                 </div>
             </div>

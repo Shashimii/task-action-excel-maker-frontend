@@ -25,8 +25,8 @@
             <div class="modal-content">
                 <h4>Edit Duty</h4>
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Title" id="dutyTitle" v-model="editData.duty">
-                    <label for="dutyTitle">Duty Title</label>
+                    <input type="text" placeholder="Title" id="dutyEditTitle" v-model="editData.duty">
+                    <label for="dutyEditTitle">Duty Title</label>
                     <p v-if="validation.validateDuties" class="validation">{{ validation.validateDuties }}</p>
                 </div>
             </div>
