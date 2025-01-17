@@ -10,12 +10,13 @@
     </div>
 
     <div id="UsernameModal" class="modal">
-        <form @submit.prevent="submitDuties">
+        <form @submit.prevent="submitUsername">
             <div class="modal-content">
                 <h4>Username</h4>
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Username" class="validate" id="accountUsername">
+                    <input type="text" placeholder="Username" class="validate" id="accountUsername" v-model="editUserData.username">
                     <label for="accountUsername">Account Username</label>
+                    <p v-if="validate.username" class="validation">{{ validate.username }}</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -29,12 +30,13 @@
     </div>
 
     <div id="PasswordModal" class="modal">
-        <form @submit.prevent="submitOfficer">
+        <form @submit.prevent="submitPassword">
             <div class="modal-content">
                 <h4>Password</h4>
                 <div class="input-field col s12">
-                    <input type="text" placeholder="Password" class="validate" id="accountPassword">
+                    <input type="text" placeholder="Password" class="validate" id="accountPassword" v-model="editUserData.password">
                     <label for="accountPassword">Account Password</label>
+                    <p v-if="validate.password" class="validation">{{ validate.password }}</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -51,6 +53,118 @@
 <script>
 export default {
     name: 'AccountSettings',
+
+    data() {
+        return {
+            editUserData: {
+                id: '',
+                username: '',
+                password: ''
+            },
+
+            validate: {
+                username: '',
+                password: ''
+            }
+        }
+    },
+
+    methods: {
+        submitUsername() {
+            if (this.validUsername()) {
+                const modalInstance = M.Modal.getInstance(document.getElementById('UsernameModal'));
+                modalInstance.close();
+
+                this.$store.dispatch('editUsername', this.editUserData)
+            }
+        },
+
+
+        submitPassword() {
+            if (this.validPassword()) {
+                const modalInstance = M.Modal.getInstance(document.getElementById('PasswordModal'));
+                modalInstance.close();
+
+                this.$store.dispatch('editPassword', this.editUserData)
+            }
+        },
+
+
+        validUsername() {
+            this.validate = {
+                username: '',
+            }
+
+            let isValid = true;
+            const regex = /^[a-zA-Z0-9]+$/;
+
+            if (this.editUserData.username === '' || !regex.test(this.editUserData.username)) {
+                if (this.editUserData.username === '') {
+                    this.validate.username = 'Username cannot be empty'
+                    isValid = false
+                } else {
+                    this.validate.username = 'Invalid Username format'
+                    isValid = false
+                }
+            }
+
+            return isValid
+        },
+
+        validPassword() {
+            this.validate = {
+                password: ''
+            }
+
+            let isValid = true;
+            const regex = /^[a-zA-Z0-9]+$/;
+
+            if (this.editUserData.password === '' || !regex.test(this.editUserData.password)) {
+                if (this.editUserData.password === '') {
+                    this.validate.password = 'Password cannot be empty'
+                    isValid = false
+                } else {
+                    this.validate.password = 'Invalid Password format'
+                    isValid = false
+                }
+            }
+
+            return isValid
+        },
+
+        loadUserData() {
+            this.editUserData.id = this.userData.id;
+            this.editUserData.username = this.userData.username;
+        },
+
+        initalizeMaterializeCSS() {
+            M.updateTextFields()
+        }
+    },
+
+    computed: {
+        userData() {
+            return this.$store.getters.userData;
+        }
+    },
+
+    watch: {
+        userData: {
+            handler() {
+                this.loadUserData()
+            },
+            deep: true
+        }
+    },
+
+    mounted() {
+        this.$store.dispatch('requestUserData');
+        this.initalizeMaterializeCSS();
+    },
+
+    updated() {
+        this.initalizeMaterializeCSS();
+    }
 }
 </script>
 

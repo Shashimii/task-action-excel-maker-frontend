@@ -6,12 +6,14 @@ export default createStore({
     duties: [],
     officers: [],
     assigned: [],
+    userData: []
   },
 
   getters: {
     duties: state => state.duties,
     officers: state => state.officers,
     assigned: state => state.assigned,
+    userData: state => state.userData
   },
 
   mutations: {
@@ -25,6 +27,10 @@ export default createStore({
 
     save_assigned_data(state, assigned) {
       state.assigned = assigned;
+    },
+
+    save_user_data(state, userData) {
+      state.userData = userData;
     }
   },
 
@@ -55,6 +61,23 @@ export default createStore({
         commit('save_assigned_data', response.data);
       } catch (error) {
         console.log('unable to get assigned duties data: ', error.message)
+      }
+    },
+
+    async requestUserData({ commit }) {
+      try {
+        const token = localStorage.getItem('authToken')
+        const response = await axios.get(`http://127.0.0.1:8000/api/user`,
+          {
+            headers: {
+              'Authorization' : `Bearer ${token}`,
+            },
+            withCredentials: true,
+          }
+        )
+        commit('save_user_data', response.data);
+      } catch (error) {
+        console.log('unable to fetch current user data:', error.message)
       }
     },
 
@@ -93,6 +116,44 @@ export default createStore({
         }
       } catch (error) {
         // console.log('unable to edit duty', error.message);
+        M.toast({
+          html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+          displayLength: 4000
+        })
+      }
+    },
+
+    async editUsername({ dispatch }, editUsernameData) {
+      try {
+        const response = await axios.patch(`http://127.0.0.1:8000/api/editUsername/${editUsernameData.id}`,editUsernameData)
+
+        if (response.status === 204) {
+          dispatch('requestUserData');
+          M.toast({
+            html: '<p class="toast-text">Username Edited Successfully.<p>',
+            displayLength: 8000
+          })
+        }
+      } catch (error) {
+        M.toast({
+          html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
+          displayLength: 4000
+        })
+      }
+    },
+
+    async editPassword({ dispatch }, editPasswordData) {
+      try {
+        const response = await axios.patch(`http://127.0.0.1:8000/api/editPassword/${editPasswordData.id}`,editPasswordData)
+
+        if (response.status === 204) {
+          dispatch('requestUserData');
+          M.toast({
+            html: '<p class="toast-text">Password Edited Successfully.<p>',
+            displayLength: 8000
+          })
+        }
+      } catch (error) {
         M.toast({
           html: '<p class="toast-text">Something went wrong Please try again Later.<p>',
           displayLength: 4000
